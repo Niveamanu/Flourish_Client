@@ -20,7 +20,7 @@ export default function MainLayout() {
         <div className="fixed top-14 left-0 bottom-0 z-40">
           <Sidebar />
         </div>
-        <main className="ml-18 mt-2 mr-2 flex-1 h-[calc(100vh-4rem)] overflow-hidden pl-4">
+        <main className="ml-16 mt-2 mr-5 flex-1 h-[calc(100vh-4rem)] overflow-hidden pl-4">
           {/* Tabs */}
           {showTabs && (
             <nav className="mb-6">

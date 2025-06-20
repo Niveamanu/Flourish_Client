@@ -81,13 +81,13 @@ export default function ReconciledRemittances() {
                       {row.site_name || "-"}
                     </td>
                     <td className="px-4 py-4 text-gray-800">
-                      {row.site_name || "-"}
+                      {row.sponsor || "-"}
                     </td>
                     <td className="px-4 py-4 text-gray-800">
-                      {row.site_name || "-"}
+                      {row.protocol || "-"}
                     </td>
                     <td className="px-4 py-4 text-gray-800">
-                      {row.site_name || "-"}
+                      {row.cro || "-"}
                     </td>
                     <td className="px-4 py-4 text-gray-800">
                       <span className="px-3 py-1 rounded-full text-xs font-semibold">
