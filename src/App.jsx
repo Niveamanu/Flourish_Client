@@ -1,32 +1,67 @@
-import { useMsal, useIsAuthenticated } from "@azure/msal-react";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import Login from "./Pages/Login";
+import UploadFiles from "./Pages/UploadFiles";
+import MainLayout from "./layouts/MainLayout";
+import { Routes, Route } from "react-router-dom";
+import Landing from "./Pages/Landing";
+import ReconciledRemittances from "./Pages/ReconciledRemittances";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
-  const { instance } = useMsal();
+export default function App() {
   const isAuthenticated = useIsAuthenticated();
+  const { inProgress } = useMsal();
 
-  const handleLogin = () => {
-    instance.loginRedirect({
-      prompt: "select_account",
-    });
-  };
+  // Show loader while MSAL is processing (e.g., after redirect)
+  if (inProgress !== "none") {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <span>Loading...</span>
+      </div>
+    );
+  }
 
-  const handleLogout = () => {
-    instance.logoutRedirect({
-      postLogoutRedirectUri: "http://localhost:5173/",
-    });
-  };
+  if (!isAuthenticated) {
+    return <Login />;
+  }
+
   return (
-    <div>
-      {isAuthenticated ? (
-        <>
-          <div>welcome to Flourish Client</div>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <button onClick={handleLogin}>Login with Microsoft</button>
-      )}
-    </div>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Landing />} />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Landing />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reconciled-remittances"
+          element={
+            <ProtectedRoute>
+              <ReconciledRemittances />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/upload-files"
+          element={
+            <ProtectedRoute>
+              <UploadFiles />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<Landing />} />
+      </Route>
+    </Routes>
   );
 }
-
-export default App;
