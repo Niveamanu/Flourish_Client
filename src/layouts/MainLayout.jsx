@@ -7,7 +7,11 @@ export default function MainLayout() {
   // Optional: Only show tabs on certain routes
   const location = useLocation();
   const navigate = useNavigate();
-  const showTabs = ["/", "/reconciled-remittances"].includes(location.pathname);
+  const showTabs = [
+    "/",
+    "/reconciled-remittances",
+    "/reconciled-summary",
+  ].includes(location.pathname);
   //const [showPopup, setShowPopup] = useState(false);
 
   return (
@@ -37,7 +41,7 @@ export default function MainLayout() {
                       }`
                     }
                   >
-                    Home
+                    Recent Reconciliation
                   </NavLink>
                   <NavLink
                     to="/reconciled-remittances"
@@ -49,7 +53,19 @@ export default function MainLayout() {
                       }`
                     }
                   >
-                    Reconciled Remittances
+                    Reconciled History
+                  </NavLink>
+                  <NavLink
+                    to="/reconciled-summary"
+                    className={({ isActive }) =>
+                      `pb-2 px-1 text-lg border-b-2 transition-colors ${
+                        isActive
+                          ? "border-gray-600 text-gray-700 font-bold"
+                          : "border-transparent text-gray-600 hover:text-blue-600"
+                      }`
+                    }
+                  >
+                    Reconciled Summary
                   </NavLink>
                 </div>
                 {/* {location.pathname === "/" && (

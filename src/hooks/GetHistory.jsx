@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import api from "../api/api.js";
 import userInfo from "../hooks/UserHook.jsx";
 
-export default function useRemittancesHistory(limit, offset) {
+export default function useRemittancesHistory(
+  limit,
+  offset,
+  startDate,
+  endDate,
+  remittanceNumber,
+  searchTrigger
+) {
   const User = userInfo();
   const [remittances, setRemittances] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,9 +21,17 @@ export default function useRemittancesHistory(limit, offset) {
       setLoading(true);
       setError(null);
       try {
-        const res = await api.get("/user/files_history", {
-          params: { user: User?.name, limit, offset },
-        }); // Adjust endpoint as needed
+        const params = {
+          user: User?.name,
+          limit,
+          offset,
+        };
+        if (startDate) params.start_date = startDate;
+        if (endDate) params.end_date = endDate;
+        if (remittanceNumber) params.remittance_number = remittanceNumber;
+
+        // ✅ Pass params directly
+        const res = await api.get("/user/files_history", { params });
         setRemittances(res.data.remittances || []);
         setTotalCount(res.data.remittance_total_count || 0);
       } catch (err) {
@@ -25,7 +40,15 @@ export default function useRemittancesHistory(limit, offset) {
       setLoading(false);
     }
     if (User?.name) fetchRemittances();
-  }, [User?.name, limit, offset]);
+  }, [
+    User?.name,
+    limit,
+    offset,
+    startDate,
+    endDate,
+    remittanceNumber,
+    searchTrigger,
+  ]);
 
   return { remittances, loading, error, totalCount };
 }

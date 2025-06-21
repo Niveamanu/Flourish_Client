@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Landing from "./Pages/Landing";
 import ReconciledRemittances from "./Pages/ReconciledRemittances";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ReconciledSummary from "./Pages/ReconciledSummary";
 
 export default function App() {
   const isAuthenticated = useIsAuthenticated();
@@ -48,6 +49,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <ReconciledRemittances />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reconciled-summary"
+          element={
+            <ProtectedRoute>
+              <ReconciledSummary />
             </ProtectedRoute>
           }
         />

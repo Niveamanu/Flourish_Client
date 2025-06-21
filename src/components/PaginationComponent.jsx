@@ -12,7 +12,7 @@ export default function Pagination({
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
-    <div className="flex items-center justify-end space-x-4 mt-6">
+    <div className="flex items-center justify-end space-x-4 mt-4 mb-2">
       <span className="text-gray-600 text-sm">
         {startItem}-{endItem} of {totalItems} items
       </span>
