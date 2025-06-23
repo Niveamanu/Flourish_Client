@@ -30,7 +30,7 @@ export default function MainLayout() {
             <nav className="mb-6">
               <div className="flex items-center justify-between">
                 <div className="flex space-x-6 ">
-                  <NavLink
+                  {/* <NavLink
                     to="/"
                     end
                     className={({ isActive }) =>
@@ -42,12 +42,12 @@ export default function MainLayout() {
                     }
                   >
                     Recent Reconciliation
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink
                     to="/reconciled-remittances"
                     className={({ isActive }) =>
                       `pb-2 px-1 text-lg border-b-2 transition-colors ${
-                        isActive
+                        isActive || location.pathname === "/"
                           ? "border-gray-600 text-gray-700 font-bold"
                           : "border-transparent text-gray-600 hover:text-blue-600"
                       }`
@@ -68,36 +68,32 @@ export default function MainLayout() {
                     Reconciled Summary
                   </NavLink>
                 </div>
-                {/* {location.pathname === "/" && (
-                  <button
-                    className="bg-gray-800 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-700 transition text-xs"
-                    onClick={() => setShowPopup(true)}
-                  >
-                    <span className="text-base">+</span>
-                    <span>New Reconciliation</span>
-                  </button>
-                )} */}
-                {["/reconciled-remittances", "/reconciled-summary"].includes(
-                  location.pathname
-                ) && (
-                  <button
-                    className="bg-gray-700 text-white px-3 py-1 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs"
-                    onClick={() => {
-                      /* TODO: Implement export logic */
-                    }}
-                  >
-                    <span>Export</span>
-                  </button>
-                )}
-                {location.pathname === "/" && (
-                  <button
-                    className="bg-gray-800 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-700 transition text-xs"
-                    onClick={() => navigate("/upload-files")}
-                  >
-                    <span className="text-base">+</span>
-                    <span>New Reconciliation</span>
-                  </button>
-                )}
+                <div className="flex items-center space-x-2">
+                  {(location.pathname === "/" ||
+                    location.pathname === "/reconciled-remittances") && (
+                    <button
+                      className="bg-gray-800 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-700 transition text-xs"
+                      onClick={() => navigate("/upload-files")}
+                    >
+                      <span className="text-base">+</span>
+                      <span>New Reconciliation</span>
+                    </button>
+                  )}
+                  {[
+                    "/reconciled-remittances",
+                    "/reconciled-summary",
+                    "/",
+                  ].includes(location.pathname) && (
+                    <button
+                      className="bg-gray-700 text-white px-3 py-1 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs"
+                      onClick={() => {
+                        /* TODO: Implement export logic */
+                      }}
+                    >
+                      <span>Export</span>
+                    </button>
+                  )}
+                </div>
               </div>
             </nav>
           )}

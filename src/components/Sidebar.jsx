@@ -6,7 +6,7 @@ export default function Sidebar() {
   // Example icons as SVGs (use Heroicons, Remix Icons, or your own)
   const icons = [
     {
-      to: "/",
+      to: "/reconciled-remittances",
       svg: (
         <svg
           className="h-6 w-6"
@@ -79,7 +79,9 @@ export default function Sidebar() {
             to={icon.to}
             className={`flex items-center justify-center w-10 h-10 rounded-lg
               ${
-                location.pathname === icon.to
+                location.pathname === icon.to ||
+                (icon.to === "/reconciled-remittances" &&
+                  location.pathname === "/")
                   ? "bg-gray-800 text-white shadow"
                   : "text-gray-400 hover:text-gray-800 hover:bg-blue-50"
               } transition`}
