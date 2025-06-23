@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useRemittancesHistory from "../hooks/GetHistory";
 import Pagination from "../components/PaginationComponent";
 import RemittanceFilter from "../components/FilterSection.jsx";
@@ -42,6 +42,10 @@ export default function ReconciledSummary() {
     setSearchTrigger((prev) => prev + 1);
   };
 
+  useEffect(() => {
+    window.__RECONCILED_SUMMARY_EXPORT__ = remittances;
+  }, [remittances]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="rounded-lg">
@@ -66,23 +70,25 @@ export default function ReconciledSummary() {
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 bg-blue-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0 z-10">
                 <tr>
-                  {/* <th className="px-4 py-2 text-base">S.No</th> */}
-                  <th className="px-4 py-2 text-base">Date Reconciled</th>
-                  <th className="px-4 py-2 text-base">Remittance Number</th>
+                  <th className="px-4 py-2 text-base">Date</th>
+                  <th className="px-4 py-2 text-base">Remittance No.</th>
+                  <th className="px-4 py-2 text-base">Reconciliation Status</th>
                   <th className="px-4 py-2 text-base">Site Name</th>
                   <th className="px-4 py-2 text-base">Sponsor</th>
                   <th className="px-4 py-2 text-base">Protocol</th>
                   <th className="px-4 py-2 text-base">CRO</th>
-                  <th className="px-4 py-2 text-base">Status</th>
                   <th className="px-4 py-2 text-base">PI Name</th>
-                  <th className="px-4 py-2 text-base">Invoice No</th>
-                  <th className="px-4 py-2 text-base">Invoice Amount</th>
-                  <th className="px-4 py-2 text-base">Screen No</th>
-                  <th className="px-4 py-2 text-base">Visit Amount</th>
-                  <th className="px-4 py-2 text-base">Visit Name</th>
-                  <th className="px-4 py-2 text-base">CTMS Amount</th>
+                  <th className="px-4 py-2 text-base">%Withholding</th>
+                  <th className="px-4 py-2 text-base">Invoice No.<br/>(Remittance)</th>
+                  <th className="px-4 py-2 text-base">Invoice Amount<br/>(Remittance)</th>
+                  <th className="px-4 py-2 text-base">Screen No.<br/>(CTMS)</th>
+                  <th className="px-4 py-2 text-base">Randomised No.<br/>(CTMS)</th>
+                  <th className="px-4 py-2 text-base">Visit Amount<br/>(Remittance)</th>
+                  <th className="px-4 py-2 text-base">Visit Name<br/>(CTMS)</th>
+                  <th className="px-4 py-2 text-base">Amount in CTMS</th>
                   <th className="px-4 py-2 text-base">Posted Date</th>
-                  <th className="px-4 py-2 text-base">Reasons</th>
+                  <th className="px-4 py-2 text-base">Difference<br/>(Amount Paid - CTMS Amount)</th>
+                  <th className="px-4 py-2 text-base">Notes</th>
                 </tr>
               </thead>
               <tbody>
@@ -122,6 +128,9 @@ export default function ReconciledSummary() {
                         {row.remittance_number || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
+                        {row.reconciliation_status || "-"}
+                      </td>
+                      <td className="px-4 py-4 text-gray-800">
                         {row.site_name || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
@@ -134,7 +143,10 @@ export default function ReconciledSummary() {
                         {row.cro || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.reconciliation_status || "-"}
+                        {row.cro || "-"}
+                      </td>
+                      <td className="px-4 py-4 text-gray-800">
+                        {row.cro || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
                         {row.cro || "-"}

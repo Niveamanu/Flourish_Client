@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useRemittancesHistory from "../hooks/GetHistory";
 import Pagination from "../components/PaginationComponent";
 import RemittanceFilter from "../components/FilterSection.jsx";
@@ -7,6 +7,14 @@ export default function ReconciledRemittances() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [remittanceNumber, setRemittanceNumber] = useState("");
+  const [siteName, setSiteName] = useState("");
+  const [sponsor, setSponsor] = useState("");
+  const [protocol, setProtocol] = useState("");
+  const [reconciliationStatus, setReconciliationStatus] = useState("");
+  const [invoiceNo, setInvoiceNo] = useState("");
+  const [screenNumber, setScreenNumber] = useState("");
+  const [randomizedNumber, setRandomizedNumber] = useState("");
+  const [visitName, setVisitName] = useState("");
   const [searchTrigger, setSearchTrigger] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -16,7 +24,10 @@ export default function ReconciledRemittances() {
     offset,
     startDate,
     endDate,
-    remittanceNumber,
+    siteName,
+    protocol,
+    reconciliationStatus,
+    sponsor,
     searchTrigger
   );
   const totalItems = totalCount;
@@ -38,9 +49,21 @@ export default function ReconciledRemittances() {
     setStartDate("");
     setEndDate("");
     setRemittanceNumber("");
+    setSiteName("");
+    setSponsor("");
+    setProtocol("");
+    setReconciliationStatus("");
+    setInvoiceNo("");
+    setScreenNumber("");
+    setRandomizedNumber("");
+    setVisitName("");
     setCurrentPage(1);
     setSearchTrigger((prev) => prev + 1);
   };
+
+  useEffect(() => {
+    window.__RECONCILED_HISTORY_EXPORT__ = remittances;
+  }, [remittances]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -54,11 +77,28 @@ export default function ReconciledRemittances() {
           startDate={startDate}
           endDate={endDate}
           remittanceNumber={remittanceNumber}
+          siteName={siteName}
+          sponsor={sponsor}
+          protocol={protocol}
+          reconciliationStatus={reconciliationStatus}
+          invoiceNo={invoiceNo}
+          screenNumber={screenNumber}
+          randomizedNumber={randomizedNumber}
+          visitName={visitName}
           onStartDateChange={(e) => setStartDate(e.target.value)}
           onEndDateChange={(e) => setEndDate(e.target.value)}
           onRemittanceNumberChange={(e) => setRemittanceNumber(e.target.value)}
+          onSiteNameChange={(e) => setSiteName(e.target.value)}
+          onSponsorChange={(e) => setSponsor(e.target.value)}
+          onProtocolChange={(e) => setProtocol(e.target.value)}
+          onStatusChange={(e) => setReconciliationStatus(e.target.value)}
+          onInvoiceChange={(e) => setInvoiceNo(e.target.value)}
+          onScreenNumberChange={(e) => setScreenNumber(e.target.value)}
+          onRandomizedNumberChange={(e) => setRandomizedNumber(e.target.value)}
+          onVisitNameChange={(e) => setVisitName(e.target.value)}
           onSearch={handleSearch}
           onReset={handleReset}
+          hideExtraFields={true}
         />
 
         <div className="relative overflow-x-auto">

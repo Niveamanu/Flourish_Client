@@ -7,7 +7,10 @@ export default function useRemittancesHistory(
   offset,
   startDate,
   endDate,
-  remittanceNumber,
+  siteName,
+  protocol, 
+  reconciliationStatus,
+  sponsor,
   searchTrigger
 ) {
   const User = userInfo();
@@ -28,7 +31,12 @@ export default function useRemittancesHistory(
         };
         if (startDate) params.start_date = startDate;
         if (endDate) params.end_date = endDate;
-        if (remittanceNumber) params.remittance_number = remittanceNumber;
+        if (siteName) params.site_name = siteName;
+        if (protocol) params.protocol = protocol;   
+        if (reconciliationStatus)
+          params.reconciliation_status = reconciliationStatus;
+        if (sponsor) params.sponsor = sponsor;
+
 
         // ✅ Pass params directly
         const res = await api.get("/user/files_history", { params });
@@ -46,7 +54,10 @@ export default function useRemittancesHistory(
     offset,
     startDate,
     endDate,
-    remittanceNumber,
+    siteName,
+    protocol,
+    reconciliationStatus, 
+    sponsor,
     searchTrigger,
   ]);
 

@@ -2,6 +2,8 @@ import Navbar from "../components/Navbar";
 import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import UploadReconciliationModal from "../components/UploadReconciliationModal";
+import { exportReconciledHistory } from "../utils/exportReconciledHistory";
+import { exportReconciledSummary } from "../utils/exportReconciledSummary";
 
 export default function MainLayout() {
   // Optional: Only show tabs on certain routes
@@ -72,22 +74,23 @@ export default function MainLayout() {
                   {(location.pathname === "/" ||
                     location.pathname === "/reconciled-remittances") && (
                     <button
-                      className="bg-gray-800 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-700 transition text-xs"
+                      className="bg-gray-700 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs"
                       onClick={() => navigate("/upload-files")}
                     >
                       <span className="text-base">+</span>
                       <span>New Reconciliation</span>
                     </button>
                   )}
-                  {[
-                    "/reconciled-remittances",
-                    "/reconciled-summary",
-                    "/",
-                  ].includes(location.pathname) && (
+                  {["/reconciled-remittances", "/reconciled-summary", "/"].includes(location.pathname) && (
                     <button
-                      className="bg-gray-700 text-white px-3 py-1 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs"
+                      className="bg-gray-700 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs"
                       onClick={() => {
-                        /* TODO: Implement export logic */
+                        if (location.pathname === "/reconciled-remittances") {
+                          exportReconciledHistory(window.__RECONCILED_HISTORY_EXPORT__);
+                        } else if (location.pathname === "/reconciled-summary") {
+                          exportReconciledSummary(window.__RECONCILED_SUMMARY_EXPORT__);
+                        }
+                        // TODO: Add export for summary if needed
                       }}
                     >
                       <span>Export</span>
