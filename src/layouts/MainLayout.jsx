@@ -77,6 +77,18 @@ export default function MainLayout() {
                     <span>New Reconciliation</span>
                   </button>
                 )} */}
+                {["/reconciled-remittances", "/reconciled-summary"].includes(
+                  location.pathname
+                ) && (
+                  <button
+                    className="bg-gray-700 text-white px-3 py-1 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs"
+                    onClick={() => {
+                      /* TODO: Implement export logic */
+                    }}
+                  >
+                    <span>Export</span>
+                  </button>
+                )}
                 {location.pathname === "/" && (
                   <button
                     className="bg-gray-800 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-700 transition text-xs"

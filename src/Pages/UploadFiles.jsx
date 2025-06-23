@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import userInfo from "../hooks/UserHook.jsx"; // Adjust the import based on your API structure
 import SaveFiles from "../hooks/saveFiles"; // Adjust the import based on your API structure
+import ReconcileFiles from "../hooks/ReconcileFiles.jsx"; // Adjust the import based on your API structure
 
 // Helper to get file icon based on extension
 // Get user info from the custom hook
@@ -46,6 +47,8 @@ export default function NewReconciliationScreen() {
   const [status, setStatus] = useState(null); // 'progress', 'success', 'error'
   const [statusMsg, setStatusMsg] = useState("");
   const user = userInfo();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [canReconcile, setCanReconcile] = useState(false);
 
   useEffect(() => {
     if (status) {
@@ -78,8 +81,16 @@ export default function NewReconciliationScreen() {
   const removeRemittance = (idx) =>
     setRemittances((prev) => prev.filter((_, i) => i !== idx));
   const handleSubmit = async () => {
+    if (!bankDeposit || remittances.length === 0) {
+      setStatus("error");
+      setStatusMsg(
+        "Please upload both Bank Deposit and Remittance files before submitting."
+      );
+      return;
+    }
+    setIsProcessing(true);
     setStatus("progress");
-    setStatusMsg("Reconciliation is in progress...");
+    setStatusMsg("File extraction is in progress...");
     try {
       const response = await SaveFiles({
         bankDeposit,
@@ -87,11 +98,37 @@ export default function NewReconciliationScreen() {
         user: user?.name,
       });
       setStatus("success");
+      // setBankDeposit(null);
+      // setRemittances([]);
+      setStatusMsg(
+        response?.message || "Files are extracted and saved. Please reconcile."
+      );
+      setCanReconcile(true);
+    } catch (err) {
+      setStatus("error");
+      setStatusMsg(
+        err?.response?.data?.message ||
+          err?.message ||
+          "Extraction failed. Please try again."
+      );
+      setCanReconcile(false);
+    }
+    setIsProcessing(false);
+  };
+  const handleReconcile = async () => {
+    setIsProcessing(true);
+    setStatus("progress");
+    setStatusMsg("Reconciling files...");
+    try {
+      const response = await ReconcileFiles({ user: user?.name });
+      setStatus("success");
+      setStatusMsg(
+        response?.message ||
+          "Reconciliation is successful. Please go to home page to check the status."
+      );
+      setCanReconcile(false);
       setBankDeposit(null);
       setRemittances([]);
-      setStatusMsg(
-        response?.message || "Reconciliation completed successfully!"
-      );
     } catch (err) {
       setStatus("error");
       setStatusMsg(
@@ -100,8 +137,8 @@ export default function NewReconciliationScreen() {
           "Reconciliation failed. Please try again."
       );
     }
+    setIsProcessing(false);
   };
-
   const StatusAlert = () => {
     if (!status) return null;
     return (
@@ -185,22 +222,38 @@ export default function NewReconciliationScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gray-50 p-5">
+      {isProcessing && (
+        <div className="fixed inset-0 z-50 backdrop-blur-sm bg-opacity-20 flex items-center justify-center pointer-events-auto">
+          {/* Optionally, you can show a spinner here */}
+        </div>
+      )}
       <StatusAlert />
-      <div className="bg-white rounded-xl shadow-lg p-8 relative">
+      <div className="bg-white rounded-xl shadow-lg p-8 relative  overflow-y-auto">
         {/* Top Bar */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-2">
             <h2 className="text-xl font-semibold">New Reconciliation</h2>
           </div>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="bg-gray-800 hover:bg-gray-900 text-white px-6 py-2 rounded-md font-semibold flex items-center"
-            disabled={status === "progress"}
-          >
-            Submit
-          </button>
+          {!canReconcile && (
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="bg-gray-700 hover:bg-gray-800 text-white px-6 py-2 rounded-md font-semibold flex items-center"
+              disabled={isProcessing || status === "progress"}
+            >
+              Extract Files
+            </button>
+          )}
+          {canReconcile && (
+            <button
+              onClick={handleReconcile}
+              className="bg-gray-700 hover:bg-gray-800 text-white px-6 py-2 rounded-md font-semibold"
+              disabled={isProcessing}
+            >
+              Reconcile Files
+            </button>
+          )}
         </div>
 
         {/* Bank Deposit Section */}
@@ -252,7 +305,7 @@ export default function NewReconciliationScreen() {
           <div className="bg-blue-50 rounded px-4 py-2 font-semibold text-gray-800 mb-2">
             Remittances
           </div>
-          <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-h-56 overflow-y-auto pr-2">
             {remittances.map((file, idx) => (
               <div
                 key={idx}
