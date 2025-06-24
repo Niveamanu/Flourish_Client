@@ -51,17 +51,6 @@ export default function RemittanceFilter({
               placeholder="End Date"
             />
           </div>
-          {!hideExtraFields && (
-            <div className="w-40">
-              <input
-                type="text"
-                value={remittanceNumber}
-                onChange={onRemittanceNumberChange}
-                placeholder="Remittance Number"
-                className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-              />
-            </div>
-          )}
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -83,91 +72,128 @@ export default function RemittanceFilter({
             onClick={onReset}
             className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 text-xs"
           >
-            Reset
+            Clear Search
           </button>
         </div>
       </div>
 
       {/* Expanded Filter Section */}
       {isExpanded && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 pt-2 border-t">
-          <div>
-            <input
-              type="text"
-              value={siteName}
-              onChange={onSiteNameChange}
-              placeholder="Site Name"
-              className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-            />
+        <div className="bg-gray-50 border border-gray-200 rounded-md mt-2 p-3">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-x-4 gap-y-2">
+            <div className="flex flex-col">
+              <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                Remittance Number
+              </label>
+              <input
+                type="text"
+                value={remittanceNumber}
+                onChange={onRemittanceNumberChange}
+                placeholder="e.g. 123456"
+                className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                Site Name
+              </label>
+              <input
+                type="text"
+                value={siteName}
+                onChange={onSiteNameChange}
+                placeholder="e.g. Main Hospital"
+                className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                Sponsor
+              </label>
+              <input
+                type="text"
+                value={sponsor}
+                onChange={onSponsorChange}
+                placeholder="e.g. Pfizer"
+                className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                Protocol
+              </label>
+              <input
+                type="text"
+                value={protocol}
+                onChange={onProtocolChange}
+                placeholder="e.g. ABC-123"
+                className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                Status
+              </label>
+              <input
+                type="text"
+                value={reconciliationStatus}
+                onChange={onStatusChange}
+                placeholder="e.g. Pending"
+                className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+              />
+            </div>
+            {!hideExtraFields && (
+              <>
+                <div className="flex flex-col">
+                  <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                    Invoice No.
+                  </label>
+                  <input
+                    type="text"
+                    value={invoiceNo}
+                    onChange={onInvoiceChange}
+                    placeholder="e.g. INV-001"
+                    className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                    Screen Number
+                  </label>
+                  <input
+                    type="text"
+                    value={screenNumber}
+                    onChange={onScreenNumberChange}
+                    placeholder="e.g. 1001"
+                    className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                    Randomized Number
+                  </label>
+                  <input
+                    type="text"
+                    value={randomizedNumber}
+                    onChange={onRandomizedNumberChange}
+                    placeholder="e.g. 2002"
+                    className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="text-xs text-gray-700 mb-1 font-medium text-left">
+                    Visit Name
+                  </label>
+                  <input
+                    type="text"
+                    value={visitName}
+                    onChange={onVisitNameChange}
+                    placeholder="e.g. Screening"
+                    className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-200 text-xs bg-white"
+                  />
+                </div>
+              </>
+            )}
           </div>
-          <div>
-            <input
-              type="text"
-              value={sponsor}
-              onChange={onSponsorChange}
-              placeholder="Sponsor"
-              className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              value={protocol}
-              onChange={onProtocolChange}
-              placeholder="Protocol"
-              className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              value={reconciliationStatus}
-              onChange={onStatusChange}
-              placeholder="Status"
-              className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-            />
-          </div>
-          {/* Only show these fields if not hidden */}
-          {!hideExtraFields && (
-            <>
-              <div>
-                <input
-                  type="text"
-                  value={invoiceNo}
-                  onChange={onInvoiceChange}
-                  placeholder="Invoice No."
-                  className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  value={screenNumber}
-                  onChange={onScreenNumberChange}
-                  placeholder="Screen Number"
-                  className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  value={randomizedNumber}
-                  onChange={onRandomizedNumberChange}
-                  placeholder="Randomized Number"
-                  className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  value={visitName}
-                  onChange={onVisitNameChange}
-                  placeholder="Visit Name"
-                  className="w-full px-2 py-1 border border-gray-300 rounded-md text-xs"
-                />
-              </div>
-            </>
-          )}
         </div>
       )}
     </div>

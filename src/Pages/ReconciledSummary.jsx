@@ -66,47 +66,158 @@ export default function ReconciledSummary() {
         />
 
         <div className="relative overflow-x-auto">
-          <div className="h-full max-h-[calc(100vh-260px)]  overflow-y-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <div className="h-full max-h-[calc(100vh-260px)] overflow-y-auto">
+            <table className="w-full min-w-max text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 bg-blue-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0 z-10">
                 <tr>
-                  <th className="px-4 py-2 text-base">Date</th>
-                  <th className="px-4 py-2 text-base">Remittance No.</th>
-                  <th className="px-4 py-2 text-base">Reconciliation Status</th>
-                  <th className="px-4 py-2 text-base">Site Name</th>
-                  <th className="px-4 py-2 text-base">Sponsor</th>
-                  <th className="px-4 py-2 text-base">Protocol</th>
-                  <th className="px-4 py-2 text-base">CRO</th>
-                  <th className="px-4 py-2 text-base">PI Name</th>
-                  <th className="px-4 py-2 text-base">%Withholding</th>
-                  <th className="px-4 py-2 text-base">Invoice No.<br/>(Remittance)</th>
-                  <th className="px-4 py-2 text-base">Invoice Amount<br/>(Remittance)</th>
-                  <th className="px-4 py-2 text-base">Screen No.<br/>(CTMS)</th>
-                  <th className="px-4 py-2 text-base">Randomised No.<br/>(CTMS)</th>
-                  <th className="px-4 py-2 text-base">Visit Amount<br/>(Remittance)</th>
-                  <th className="px-4 py-2 text-base">Visit Name<br/>(CTMS)</th>
-                  <th className="px-4 py-2 text-base">Amount in CTMS</th>
-                  <th className="px-4 py-2 text-base">Posted Date</th>
-                  <th className="px-4 py-2 text-base">Difference<br/>(Amount Paid - CTMS Amount)</th>
-                  <th className="px-4 py-2 text-base">Notes</th>
+                  <th
+                    className="px-4 py-2 text-base bg-blue-50 sticky top-0 left-0 z-30 shadow-right"
+                    style={{ width: 120 }}
+                  >
+                    Date
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base bg-blue-50 sticky top-0 left-[120px] z-20 shadow-right"
+                    style={{ width: 140 }}
+                  >
+                    Remittance No.
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base bg-blue-50 sticky top-0 left-[260px] z-10 shadow-right"
+                    style={{ width: 130 }}
+                  >
+                    Status
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base bg-blue-50 sticky top-0 left-[390px] z-0 border-r-4 border-gray-400 shadow-lg"
+                    style={{ minWidth: 120 }}
+                  >
+                    Site Name
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Sponsor
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Protocol
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    CRO
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    PI Name
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Withholding
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Invoice No.
+                    <br />
+                    <span className="text-sm font-medium">(Remittance)</span>
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Invoice Amount
+                    <br />
+                    <span className="text-sm font-medium">(Remittance)</span>
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Screen No.
+                    <br />
+                    <span className="text-sm font-medium">(CTMS)</span>
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Randomised No.
+                    <br />
+                    <span className="text-sm font-medium">(CTMS)</span>
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Visit Amount
+                    <br />
+                    <span className="text-sm font-medium">(Remittance)</span>
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Visit Name
+                    <br />
+                    <span className="text-sm font-medium">(CTMS)</span>
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Amount in CTMS
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Posted Date
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Difference
+                    <br />
+                    <span className="text-sm font-medium">
+                      (Amount Paid - CTMS Amount)
+                    </span>
+                  </th>
+                  <th
+                    className="px-4 py-2 text-base top-0"
+                    style={{ minWidth: 120 }}
+                  >
+                    Notes
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-8">
+                    <td colSpan={19} className="text-center py-8">
                       Loading...
                     </td>
                   </tr>
                 ) : error ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-8 text-red-500">
+                    <td colSpan={19} className="text-center py-8 text-red-500">
                       Error loading data
                     </td>
                   </tr>
                 ) : paginatedRows.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-8">
+                    <td colSpan={19} className="text-center py-8">
                       No remittances found
                     </td>
                   </tr>
@@ -116,21 +227,30 @@ export default function ReconciledSummary() {
                       key={rowIndex}
                       className="bg-white dark:bg-gray-800 dark:border-gray-700 border-gray-200 border-b-2"
                     >
-                      {/* <td className="px-4 py-4 text-gray-800">
-                        {(currentPage - 1) * pageSize + rowIndex + 1}
-                      </td> */}
-                      <td className="px-4 py-4 text-gray-800">
+                      <td
+                        className="px-4 py-4 text-gray-800 bg-white sticky left-0 z-0 shadow-right top-0"
+                        style={{ width: 120 }}
+                      >
                         {row.created_date
                           ? row.created_date.split(" ")[0]
                           : "-"}
                       </td>
-                      <td className="px-4 py-4 text-gray-800">
+                      <td
+                        className="px-4 py-4 text-gray-800 bg-white sticky left-[120px] z-0 shadow-right top-0"
+                        style={{ width: 140 }}
+                      >
                         {row.remittance_number || "-"}
                       </td>
-                      <td className="px-4 py-4 text-gray-800">
+                      <td
+                        className="px-4 py-4 text-gray-800 bg-white sticky left-[260px] z-0 shadow-right top-0"
+                        style={{ width: 130 }}
+                      >
                         {row.reconciliation_status || "-"}
                       </td>
-                      <td className="px-4 py-4 text-gray-800">
+                      <td
+                        className="px-4 py-4 text-gray-800 bg-white sticky left-[390px] z-0 border-r-4 border-gray-400 shadow-lg top-0"
+                        style={{ width: 120 }}
+                      >
                         {row.site_name || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
@@ -143,37 +263,40 @@ export default function ReconciledSummary() {
                         {row.cro || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.pi_name || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.withholding || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.invoice_number || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.invoice_amount || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.screen_number || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.randomised_number || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.visit_amount || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.visit_name || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.amount_in_ctms || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.posted_date || "-"}
                       </td>
                       <td className="px-4 py-4 text-gray-800">
-                        {row.cro || "-"}
+                        {row.difference || "-"}
+                      </td>
+                      <td className="px-4 py-4 text-gray-800">
+                        {row.notes || "-"}
                       </td>
                     </tr>
                   ))

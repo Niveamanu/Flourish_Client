@@ -71,28 +71,27 @@ export default function MainLayout() {
                   </NavLink>
                 </div>
                 <div className="flex items-center space-x-2">
-                  {(location.pathname === "/" ||
-                    location.pathname === "/reconciled-remittances") && (
+                  { (
                     <button
-                      className="bg-gray-700 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs"
+                      className="bg-gray-700 text-white px-3 py-1 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs font-medium"
                       onClick={() => navigate("/upload-files")}
                     >
                       <span className="text-base">+</span>
                       <span>New Reconciliation</span>
                     </button>
                   )}
-                  {["/reconciled-remittances", "/reconciled-summary", "/"].includes(location.pathname) && (
+                  {  (
                     <button
-                      className="bg-gray-700 text-white px-2 py-0.5 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs"
+                      className="bg-gray-700 text-white px-3 py-1 rounded-md flex items-center gap-1 hover:bg-gray-800 transition text-xs font-medium"
                       onClick={() => {
                         if (location.pathname === "/reconciled-remittances") {
                           exportReconciledHistory(window.__RECONCILED_HISTORY_EXPORT__);
                         } else if (location.pathname === "/reconciled-summary") {
                           exportReconciledSummary(window.__RECONCILED_SUMMARY_EXPORT__);
                         }
-                        // TODO: Add export for summary if needed
                       }}
                     >
+                      <span className="material-icons text-base">download</span>
                       <span>Export</span>
                     </button>
                   )}

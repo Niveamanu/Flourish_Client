@@ -28,7 +28,8 @@ export default function ReconciledRemittances() {
     protocol,
     reconciliationStatus,
     sponsor,
-    searchTrigger
+    searchTrigger,
+    remittanceNumber
   );
   const totalItems = totalCount;
   const totalPages = Math.ceil(totalItems / pageSize);
@@ -114,6 +115,7 @@ export default function ReconciledRemittances() {
                   <th className="px-4 py-2 text-base">Protocol</th>
                   <th className="px-4 py-2 text-base">CRO</th>
                   <th className="px-4 py-2 text-base">Status</th>
+                  <th className="px-4 py-2 text-base">File Type</th>
                 </tr>
               </thead>
               <tbody>
@@ -166,6 +168,9 @@ export default function ReconciledRemittances() {
                       </td>
                       <td className="px-4 py-4 text-gray-800">
                         {row.reconciliation_status || "-"}
+                      </td>
+                      <td className="px-4 py-4 text-gray-800">
+                        { "Remittance"}
                       </td>
                     </tr>
                   ))

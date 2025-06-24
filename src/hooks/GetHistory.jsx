@@ -11,6 +11,7 @@ export default function useRemittancesHistory(
   protocol, 
   reconciliationStatus,
   sponsor,
+  remittanceNumber,
   searchTrigger
 ) {
   const User = userInfo();
@@ -37,6 +38,7 @@ export default function useRemittancesHistory(
           params.reconciliation_status = reconciliationStatus;
         if (sponsor) params.sponsor = sponsor;
 
+        if (remittanceNumber) params.remittance_number = remittanceNumber;
 
         // ✅ Pass params directly
         const res = await api.get("/user/files_history", { params });
@@ -59,6 +61,7 @@ export default function useRemittancesHistory(
     reconciliationStatus, 
     sponsor,
     searchTrigger,
+    remittanceNumber
   ]);
 
   return { remittances, loading, error, totalCount };
